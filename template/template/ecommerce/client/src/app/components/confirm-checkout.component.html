@@ -1,0 +1,60 @@
+<h2>Checkout</h2>
+
+<form [formGroup]="checkoutForm" (ngSubmit)="onSubmit()" *ngIf="!orderSubmitted">
+  <table>
+    <tr>
+      <td>Name: </td>
+      <td>
+        <input type="text" formControlName="name" size="30">
+      </td>
+    </tr>
+    <tr>
+      <td>Address: </td>
+      <td>
+        <input type="text" formControlName="address" size="30">
+      </td>
+    </tr>
+    <tr>
+      <td>Priority: </td>
+      <td>
+        <input type="checkbox" formControlName="priority">
+      </td>
+    </tr>
+    <tr>
+      <td>Comments: </td>
+      <td>
+        <textarea formControlName="comments" cols="30" rows="4"></textarea>
+      </td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>
+        <button type="submit" [disabled]="checkoutForm.invalid">Place Order</button>
+      </td>
+    </tr>
+  </table>
+</form>
+
+<hr>
+
+<table border="1">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Price</th>
+      <th>Quantity</th>
+    </tr>
+  </thead>
+  <tbody *ngFor="let p of cart$ | async">
+    <tr>
+      <td> {{p.name}} </td>
+      <td> {{ p.price | currency:"INR" }} </td>
+      <td> {{p.quantity}} </td>
+    </tr>
+  </tbody>
+  <tfoot>
+    <td></td>
+    <td>Total: </td>
+    <td> {{total$}} </td>
+  </tfoot>
+</table>
